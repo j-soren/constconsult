@@ -63,7 +63,7 @@ export function TaskBudgetModal({ open, onClose, task }: TaskBudgetModalProps) {
         <div>
           <h3 className="mb-3 text-sm font-semibold text-slate-900">Cost Summary</h3>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <FormField label="Estimated Cost ($)" htmlFor="budget-estimated">
+            <FormField label="Estimated Cost (₹)" htmlFor="budget-estimated">
               <input
                 id="budget-estimated"
                 type="number"
@@ -74,7 +74,7 @@ export function TaskBudgetModal({ open, onClose, task }: TaskBudgetModalProps) {
                 className={inputClassName}
               />
             </FormField>
-            <FormField label="Actual Cost ($)" htmlFor="budget-actual">
+            <FormField label="Actual Cost (₹)" htmlFor="budget-actual">
               <input
                 id="budget-actual"
                 type="number"
@@ -91,7 +91,7 @@ export function TaskBudgetModal({ open, onClose, task }: TaskBudgetModalProps) {
         <div>
           <h3 className="mb-3 text-sm font-semibold text-slate-900">Labour</h3>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <FormField label="Estimated Labour Cost ($)" htmlFor="budget-est-labour">
+            <FormField label="Estimated Labour Cost (₹)" htmlFor="budget-est-labour">
               <input
                 id="budget-est-labour"
                 type="number"
@@ -102,7 +102,7 @@ export function TaskBudgetModal({ open, onClose, task }: TaskBudgetModalProps) {
                 className={inputClassName}
               />
             </FormField>
-            <FormField label="Actual Labour Cost ($)" htmlFor="budget-act-labour">
+            <FormField label="Actual Labour Cost (₹)" htmlFor="budget-act-labour">
               <input
                 id="budget-act-labour"
                 type="number"
@@ -139,7 +139,7 @@ export function TaskBudgetModal({ open, onClose, task }: TaskBudgetModalProps) {
         <div>
           <h3 className="mb-3 text-sm font-semibold text-slate-900">Finance Allocation</h3>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <FormField label="Allocated Budget ($)" htmlFor="budget-allocated">
+            <FormField label="Allocated Budget (₹)" htmlFor="budget-allocated">
               <input
                 id="budget-allocated"
                 type="number"
@@ -150,7 +150,7 @@ export function TaskBudgetModal({ open, onClose, task }: TaskBudgetModalProps) {
                 className={inputClassName}
               />
             </FormField>
-            <FormField label="Contingency ($)" htmlFor="budget-contingency">
+            <FormField label="Contingency (₹)" htmlFor="budget-contingency">
               <input
                 id="budget-contingency"
                 type="number"

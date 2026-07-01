@@ -165,7 +165,7 @@ export function EditProjectModal({ open, onClose, project }: EditProjectModalPro
         </div>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <FormField label="Estimated Budget ($)" htmlFor="edit-project-budget">
+          <FormField label="Estimated Budget (₹)" htmlFor="edit-project-budget">
             <input
               id="edit-project-budget"
               type="number"

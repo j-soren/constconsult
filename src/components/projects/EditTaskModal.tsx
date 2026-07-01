@@ -134,7 +134,7 @@ export function EditTaskModal({ open, onClose, task }: EditTaskModalProps) {
         </div>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <FormField label="Estimated Cost ($)" htmlFor="edit-task-estimated">
+          <FormField label="Estimated Cost (₹)" htmlFor="edit-task-estimated">
             <input
               id="edit-task-estimated"
               type="number"
@@ -146,7 +146,7 @@ export function EditTaskModal({ open, onClose, task }: EditTaskModalProps) {
             />
           </FormField>
 
-          <FormField label="Actual Cost ($)" htmlFor="edit-task-actual">
+          <FormField label="Actual Cost (₹)" htmlFor="edit-task-actual">
             <input
               id="edit-task-actual"
               type="number"

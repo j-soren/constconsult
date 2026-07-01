@@ -2,7 +2,13 @@ import { DollarSign, Package, Pencil, Plus, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { useAppActions } from '../../context/AppContext';
 import type { Material, Task } from '../../types';
-import { formatCurrency, getEstimatedLabourCost, getLabourCost, getMaterialCost } from '../../utils/format';
+import {
+  formatCurrency,
+  formatNumber,
+  getEstimatedLabourCost,
+  getLabourCost,
+  getMaterialCost,
+} from '../../utils/format';
 import { MaterialModal } from './MaterialModal';
 import { TaskBudgetModal } from './TaskBudgetModal';
 
@@ -92,7 +98,7 @@ export function TaskManagePanel({ task }: TaskManagePanelProps) {
             <div>
               <p className="text-xs text-slate-500">Crew / Hours</p>
               <p className="font-semibold text-slate-900">
-                {task.labourRequirement.crewSize} crew · {task.labourRequirement.estimatedHours.toLocaleString()} hrs
+                {task.labourRequirement.crewSize} crew · {formatNumber(task.labourRequirement.estimatedHours)} hrs
               </p>
             </div>
             <div>
@@ -146,9 +152,9 @@ export function TaskManagePanel({ task }: TaskManagePanelProps) {
                       <td className="py-2.5 pr-3 text-slate-600">
                         {material.quantity} {material.unit}
                       </td>
-                      <td className="py-2.5 pr-3 text-slate-600">{formatCurrency(material.unitCost)}</td>
+                      <td className="py-2.5 pr-3 text-slate-600">{formatCurrency(material.unitCost, true)}</td>
                       <td className="py-2.5 pr-3 font-medium text-slate-900">
-                        {formatCurrency(material.quantity * material.unitCost)}
+                        {formatCurrency(material.quantity * material.unitCost, true)}
                       </td>
                       <td className="py-2.5 text-right">
                         <div className="flex justify-end gap-1">

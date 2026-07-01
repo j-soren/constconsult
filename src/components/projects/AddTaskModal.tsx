@@ -158,7 +158,7 @@ export function AddTaskModal({ open, onClose, projectId }: AddTaskModalProps) {
           </FormField>
         </div>
 
-        <FormField label="Estimated Cost ($)" htmlFor="task-cost">
+        <FormField label="Estimated Cost (₹)" htmlFor="task-cost">
           <input
             id="task-cost"
             type="number"

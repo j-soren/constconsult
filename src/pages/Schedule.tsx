@@ -5,7 +5,7 @@ import { Card, CardBody, CardHeader } from '../components/ui/Card';
 import { EmptyState } from '../components/ui/EmptyState';
 import { useAppData, useAppSelectors } from '../context/AppContext';
 import { MEETING_HORIZON_DAYS, isWithinDays } from '../utils/dates';
-import { formatDate } from '../utils/format';
+import { formatDate, formatMonthYear } from '../utils/format';
 import { isScheduleRelevantTask } from '../utils/schedule';
 
 export function Schedule() {
@@ -44,10 +44,7 @@ export function Schedule() {
   ].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
   const groupedByMonth = scheduleItems.reduce<Record<string, typeof scheduleItems>>((acc, item) => {
-    const month = new Date(item.date + 'T00:00:00').toLocaleDateString('en-US', {
-      month: 'long',
-      year: 'numeric',
-    });
+    const month = formatMonthYear(item.date);
     if (!acc[month]) acc[month] = [];
     acc[month].push(item);
     return acc;

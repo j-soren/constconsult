@@ -166,7 +166,7 @@ export function AddProjectModal({ open, onClose }: AddProjectModalProps) {
           </FormField>
         </div>
 
-        <FormField label="Estimated Budget ($)" htmlFor="project-budget">
+        <FormField label="Estimated Budget (₹)" htmlFor="project-budget">
           <input
             id="project-budget"
             type="number"

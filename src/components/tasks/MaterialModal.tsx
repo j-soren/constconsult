@@ -108,7 +108,7 @@ export function MaterialModal({ open, onClose, taskId, taskName, material }: Mat
             />
           </FormField>
 
-          <FormField label="Unit Cost ($)" htmlFor="material-unit-cost">
+          <FormField label="Unit Cost (₹)" htmlFor="material-unit-cost">
             <input
               id="material-unit-cost"
               type="number"
@@ -124,7 +124,7 @@ export function MaterialModal({ open, onClose, taskId, taskName, material }: Mat
 
         <div className="rounded-lg bg-slate-50 px-4 py-3 text-sm">
           <span className="text-slate-500">Line total: </span>
-          <span className="font-semibold text-slate-900">{formatCurrency(lineTotal)}</span>
+          <span className="font-semibold text-slate-900">{formatCurrency(lineTotal, true)}</span>
         </div>
 
         <div className="flex justify-end gap-3 border-t border-slate-100 pt-4">

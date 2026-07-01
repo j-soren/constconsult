@@ -1,16 +1,40 @@
-export function formatCurrency(amount: number): string {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(amount);
+export const LOCALE = 'en-IN';
+export const CURRENCY = 'INR';
+
+const currencyFormatter = new Intl.NumberFormat(LOCALE, {
+  style: 'currency',
+  currency: CURRENCY,
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 0,
+});
+
+const currencyFormatterPrecise = new Intl.NumberFormat(LOCALE, {
+  style: 'currency',
+  currency: CURRENCY,
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+
+export function formatCurrency(amount: number, precise = false): string {
+  const formatter = precise ? currencyFormatterPrecise : currencyFormatter;
+  return formatter.format(amount);
+}
+
+export function formatNumber(value: number): string {
+  return new Intl.NumberFormat(LOCALE).format(value);
 }
 
 export function formatDate(dateStr: string): string {
-  return new Date(dateStr + 'T00:00:00').toLocaleDateString('en-US', {
-    month: 'short',
+  return new Date(dateStr + 'T00:00:00').toLocaleDateString(LOCALE, {
     day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  });
+}
+
+export function formatMonthYear(dateStr: string): string {
+  return new Date(dateStr + 'T00:00:00').toLocaleDateString(LOCALE, {
+    month: 'long',
     year: 'numeric',
   });
 }
