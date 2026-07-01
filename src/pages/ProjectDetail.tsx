@@ -11,8 +11,8 @@ import {
   User,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import { useState, type KeyboardEvent } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useEffect, useState, type KeyboardEvent } from 'react';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { AddTaskModal } from '../components/projects/AddTaskModal';
 import { EditProjectModal } from '../components/projects/EditProjectModal';
 import { EditTaskModal } from '../components/projects/EditTaskModal';
@@ -55,10 +55,53 @@ export function ProjectDetail() {
     getProjectInvoices,
     getProjectCommunications,
   } = useAppSelectors();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [activeTab, setActiveTab] = useState<Tab>('overview');
+  const [expandedTaskId, setExpandedTaskId] = useState<string | null>(null);
   const [showAddTask, setShowAddTask] = useState(false);
   const [showEditProject, setShowEditProject] = useState(false);
   const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const tabParam = searchParams.get('tab');
+    const taskParam = searchParams.get('task');
+
+    if (taskParam) {
+      setActiveTab('tasks');
+      setExpandedTaskId(taskParam);
+      return;
+    }
+
+    if (tabParam && tabs.some((tab) => tab.id === tabParam)) {
+      setActiveTab(tabParam as Tab);
+    }
+    setExpandedTaskId(null);
+  }, [searchParams]);
+
+  const handleTabChange = (tab: Tab) => {
+    setActiveTab(tab);
+    const nextParams = new URLSearchParams(searchParams);
+    if (tab === 'tasks') {
+      nextParams.set('tab', 'tasks');
+    } else {
+      nextParams.delete('tab');
+      nextParams.delete('task');
+      setExpandedTaskId(null);
+    }
+    setSearchParams(nextParams, { replace: true });
+  };
+
+  const handleExpandedTaskChange = (taskId: string | null) => {
+    setExpandedTaskId(taskId);
+    const nextParams = new URLSearchParams(searchParams);
+    nextParams.set('tab', 'tasks');
+    if (taskId) {
+      nextParams.set('task', taskId);
+    } else {
+      nextParams.delete('task');
+    }
+    setSearchParams(nextParams, { replace: true });
+  };
 
   const handleTabKeyDown = (event: KeyboardEvent<HTMLButtonElement>, tabId: Tab) => {
     const currentIndex = tabs.findIndex((tab) => tab.id === tabId);
@@ -73,7 +116,7 @@ export function ProjectDetail() {
 
     if (nextIndex !== null) {
       event.preventDefault();
-      setActiveTab(tabs[nextIndex].id);
+      handleTabChange(tabs[nextIndex].id);
     }
   };
 
@@ -157,7 +200,7 @@ export function ProjectDetail() {
               aria-selected={activeTab === tab.id}
               aria-controls={`tabpanel-${tab.id}`}
               tabIndex={activeTab === tab.id ? 0 : -1}
-              onClick={() => setActiveTab(tab.id)}
+              onClick={() => handleTabChange(tab.id)}
               onKeyDown={(event) => handleTabKeyDown(event, tab.id)}
               className={`border-b-2 pb-3 text-sm font-medium transition-colors ${
                 activeTab === tab.id
@@ -503,6 +546,8 @@ export function ProjectDetail() {
             tasks={projectTasks}
             showProjectColumn={false}
             onEditTask={setEditingTaskId}
+            expandedTaskId={expandedTaskId}
+            onExpandedTaskIdChange={handleExpandedTaskChange}
             emptyState={
               <EmptyState
                 icon={CheckSquare}

@@ -6,6 +6,7 @@ import { EmptyState } from '../components/ui/EmptyState';
 import { useAppData, useAppSelectors } from '../context/AppContext';
 import { MEETING_HORIZON_DAYS, isWithinDays } from '../utils/dates';
 import { formatDate, formatMonthYear } from '../utils/format';
+import { getProjectTabPath, getProjectTaskPath } from '../utils/routes';
 import { isScheduleRelevantTask } from '../utils/schedule';
 
 export function Schedule() {
@@ -156,9 +157,17 @@ export function Schedule() {
                           </p>
                         </div>
                         <Link
-                          to={`/projects/${item.projectId}`}
+                          to={
+                            item.type === 'task'
+                              ? getProjectTaskPath(item.projectId, item.id)
+                              : getProjectTabPath(item.projectId, 'client')
+                          }
                           className="shrink-0 text-slate-400 hover:text-brand-600"
-                          aria-label={`View ${project?.name ?? 'project'}`}
+                          aria-label={
+                            item.type === 'task'
+                              ? `View task ${item.title}`
+                              : `View ${project?.name ?? 'project'} meetings`
+                          }
                         >
                           <ChevronRight className="h-5 w-5" />
                         </Link>

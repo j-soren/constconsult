@@ -13,16 +13,35 @@ interface TaskTableProps {
   showProjectColumn?: boolean;
   emptyState: ReactNode;
   onEditTask: (taskId: string) => void;
+  expandedTaskId?: string | null;
+  onExpandedTaskIdChange?: (taskId: string | null) => void;
 }
 
-export function TaskTable({ tasks, showProjectColumn = true, emptyState, onEditTask }: TaskTableProps) {
+export function TaskTable({
+  tasks,
+  showProjectColumn = true,
+  emptyState,
+  onEditTask,
+  expandedTaskId: controlledExpandedTaskId,
+  onExpandedTaskIdChange,
+}: TaskTableProps) {
   const { getProject, getEmployee } = useAppSelectors();
-  const [expandedTaskId, setExpandedTaskId] = useState<string | null>(null);
+  const [internalExpandedTaskId, setInternalExpandedTaskId] = useState<string | null>(null);
+  const isControlled = controlledExpandedTaskId !== undefined && onExpandedTaskIdChange !== undefined;
+  const expandedTaskId = isControlled ? controlledExpandedTaskId : internalExpandedTaskId;
 
   const columnCount = showProjectColumn ? 9 : 8;
 
+  const setExpandedTaskId = (taskId: string | null) => {
+    if (isControlled) {
+      onExpandedTaskIdChange(taskId);
+    } else {
+      setInternalExpandedTaskId(taskId);
+    }
+  };
+
   const toggleExpanded = (taskId: string) => {
-    setExpandedTaskId((current) => (current === taskId ? null : taskId));
+    setExpandedTaskId(expandedTaskId === taskId ? null : taskId);
   };
 
   if (tasks.length === 0) {
